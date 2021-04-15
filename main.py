@@ -1,11 +1,9 @@
 from flask import Flask, request
-import logging
 import json
 import random
 
 app = Flask(__name__)
 
-logging.basicConfig(level=logging.INFO)
 
 # создаем словарь, в котором ключ — название города,
 # а значение — массив, где перечислены id картинок,
@@ -27,7 +25,6 @@ sessionStorage = {}
 
 @app.route('/post', methods=['POST'])
 def main():
-    logging.info(f'Request: {request.json!r}')
     response = {
         'session': request.json['session'],
         'version': request.json['version'],
@@ -36,7 +33,6 @@ def main():
         }
     }
     handle_dialog(response, request.json)
-    logging.info(f'Response: {response!r}')
     return json.dumps(response)
 
 
