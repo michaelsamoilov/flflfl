@@ -1,22 +1,18 @@
 from flask import Flask, request
 import os
-import logging
 import json
 # импортируем функции из нашего второго файла geo
 from geo import get_country, get_distance, get_coordinates
 
 app = Flask(__name__)
 
-# Добавляем логирование в файл. 
-# Чтобы найти файл, перейдите на pythonwhere в раздел files, 
+# Добавляем логирование в файл.
+# Чтобы найти файл, перейдите на pythonwhere в раздел files,
 # он лежит в корневой папке
-logging.basicConfig(level=logging.INFO, filename='app.log',
-                    format='%(asctime)s %(levelname)s %(name)s %(message)s')
 
 
 @app.route('/post', methods=['POST'])
 def main():
-    logging.info('Request: %r', request.json)
     response = {
         'session': request.json['session'],
         'version': request.json['version'],
@@ -25,7 +21,6 @@ def main():
         }
     }
     handle_dialog(response, request.json)
-    logging.info('Request: %r', response)
     return json.dumps(response)
 
 
